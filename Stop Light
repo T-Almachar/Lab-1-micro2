@@ -1,0 +1,47 @@
+
+
+int Rled = 13; //Red LED
+int Yled = 12; //Yellow LED
+int Gled = 11; //Green LED
+int Button = 10; //Button
+int Buzzer = 9; //Buzzer
+void setup() {
+
+pinMode(Rled, OUTPUT);
+pinMode(Yled, OUTPUT);
+pinMode(Gled, OUTPUT);
+pinMode(Buzzer, OUTPUT);
+pinMode(Button, INPUT);
+}
+void loop() {
+if(digitalRead(Button) == LOW){
+  while(1==1){
+    digitalWrite(Yled, LOW);
+    digitalWrite(Buzzer, LOW);
+    digitalWrite(Rled, HIGH);
+    delay(1200);
+    digitalWrite(Buzzer, HIGH);
+    delay(300);
+    digitalWrite(Buzzer, LOW);
+    digitalWrite(Rled, LOW);
+    digitalWrite(Gled, HIGH);
+    delay(1200);
+    digitalWrite(Buzzer, HIGH);
+    delay(300);
+    digitalWrite(Gled, LOW);
+    digitalWrite(Yled, HIGH);
+    delay(300);
+    
+  }
+
+
+}
+else{
+  
+  digitalWrite(Rled, HIGH);
+  delay(300);
+  digitalWrite(Rled, LOW);
+  delay(300);
+ 
+}
+}
