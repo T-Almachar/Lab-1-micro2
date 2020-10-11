@@ -1,47 +1,64 @@
-
-
-int Rled = 13; //Red LED
-int Yled = 12; //Yellow LED
-int Gled = 11; //Green LED
-int Button = 10; //Button
-int Buzzer = 9; //Buzzer
+int Pbutton = 6;
+int Buzzer=4;
+int outGreen = 8;
+int outYellow = 9;
+int outRed = 10;
+int Bpushed=0;
+int Clock=33;
 void setup() {
-
-pinMode(Rled, OUTPUT);
-pinMode(Yled, OUTPUT);
-pinMode(Gled, OUTPUT);
-pinMode(Buzzer, OUTPUT);
-pinMode(Button, INPUT);
+  Serial.begin(9600);
+  pinMode(outGreen, OUTPUT); 
+  pinMode(outYellow, OUTPUT);
+  pinMode(outRed, OUTPUT);
+  pinMode(Pbutton, INPUT);
+  pinMode(Buzzer, OUTPUT);
+  digitalWrite(outRed, HIGH);
+  digitalWrite(outGreen, LOW);
+  digitalWrite(outYellow, LOW);
 }
+
 void loop() {
-if(digitalRead(Button) == LOW){
   while(1==1){
-    digitalWrite(Yled, LOW);
-    digitalWrite(Buzzer, LOW);
-    digitalWrite(Rled, HIGH);
-    delay(1200);
-    digitalWrite(Buzzer, HIGH);
-    delay(300);
-    digitalWrite(Buzzer, LOW);
-    digitalWrite(Rled, LOW);
-    digitalWrite(Gled, HIGH);
-    delay(1200);
-    digitalWrite(Buzzer, HIGH);
-    delay(300);
-    digitalWrite(Gled, LOW);
-    digitalWrite(Yled, HIGH);
-    delay(300);
+    if (digitalRead (Pbutton) == HIGH && Bpushed==0){
+      delay (30);
+      digitalWrite (outRed, HIGH);
+      delay(500);
+      digitalWrite(outRed, LOW);
+      delay(500);
     
-  }
-
-
-}
-else{
-  
-  digitalWrite(Rled, HIGH);
-  delay(300);
-  digitalWrite(Rled, LOW);
-  delay(300);
+    }
+    else if (digitalRead(Pbutton) == LOW){
+      delay(30);
+    while(digitalRead(Pbutton) == LOW){
+      Bpushed=1;
+        for (Clock; Clock>=0;Clock--){
+          delay (1000);
  
-}
+          if (Clock <= 33 && Clock >= 18){
+            digitalWrite (Buzzer, LOW);
+            digitalWrite (outRed, HIGH);
+            digitalWrite (outYellow, LOW);
+          if (Clock <= 21 && Clock>= 18){
+            digitalWrite (Buzzer, HIGH);
+          }
+        }
+          else if (Clock <=18 && Clock >=3){
+            digitalWrite (Buzzer, LOW);
+            digitalWrite (outGreen, HIGH);
+            digitalWrite (outRed, LOW);
+          if (Clock <= 6 && Clock>= 3){
+            digitalWrite (Buzzer, HIGH);
+          }
+        }
+          else if (Clock <=3 && Clock >=0){
+            digitalWrite (outYellow, HIGH);
+            digitalWrite (outGreen, LOW);
+          if (Clock== 0){
+              Clock =33;
+            }
+          }
+        } 
+      }
+    }
+  }
 }
